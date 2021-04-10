@@ -2,22 +2,15 @@
   <div id="app">
     <h1>Would you rather</h1>
 
-    <would-you-rather v-bind:question="questions"
+    <!-- Duplicate 3 times -->
+    <would-you-rather v-for="question in questions" v-bind:key="question.id"
+    v-bind:question="question"
+    v-on:answer-changed="answerChanged"
+    ></would-you-rather>
 
-
-    v-bind:answer1="questions[0].answerOne"
-    v-bind:answer2="questions[0].answerTwo"
-
-    v-bind:answer3="questions[1].answerOne"
-    v-bind:answer4="questions[1].answerTwo" 
-
-    v-bind:answer5="questions[2].answerOne"
-    v-bind:answer6="questions[2].answerTwo"  
-
-    v-on:answer-changed="answerChanged"></would-you-rather>
-
-
-    <p>{{ userSelectionMessage}}</p>
+    <!-- display message -->
+    <li v-for="choice in choicesMade">{{ choice }}</li>
+    
   </div>
 </template>
 
@@ -35,28 +28,42 @@ export default {
         {
           id: 0,
           question: 'Would you rather dance or sing?',
-          answerOne: 'dance',
-          answerTwo: 'sing'
+          answer1: 'dance',
+          answer2: 'sing'
         },
         {
           id: 1,
           question: 'Would you rather see a firework display or a circus performance?',
-          answerOne: 'firework display',
-          answerTwo: 'circus performance'
+          answer1: 'firework display',
+          answer2: 'circus performance'
         },
         {
           id: 2,
           question: 'Would you rather be able to create a new holiday or create a new sport?',
-          answerOne: 'create new holiday',
-          answerTwo: 'create new sport'
+          answer1: 'create new holiday',
+          answer2: 'create new sport'
         }
       ],
+      choices: [],
       userSelectionMessage: ''
     }
   },
   methods: {
-    answerChanged(choice) {
-      this.userSelectionMessage = `You Would Rayher... ${choice}`
+    answerChanged(choice, id) {
+      // this.userSelectionMessage = `You Would Rayher... ${choice}`
+      // console.log(choice, id)
+      this.choices[id] = choice
+    }
+  },
+  computed: {
+    choicesMade() {
+      let userChoices = []
+      this.choices.forEach( c => {
+        if (c) {
+          userChoices.push(c)
+        }
+      } )
+      return userChoices
     }
   }
 }
