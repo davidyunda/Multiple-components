@@ -50,8 +50,6 @@ export default {
   },
   methods: {
     answerChanged(choice, id) {
-      // this.userSelectionMessage = `You Would Rayher... ${choice}`
-      // console.log(choice, id)
       this.choices[id] = choice
     }
   },
