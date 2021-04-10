@@ -44,8 +44,7 @@ export default {
           answer2: 'create new sport'
         }
       ],
-      choices: [],
-      userSelectionMessage: ''
+      choices: []
     }
   },
   methods: {
